@@ -1,5 +1,4 @@
 import React from 'react'
-import NavBar from 'components/NavBar'
 import { getGameBySlug } from "services/apiCalls";
 
 export default function Detail(props) {
@@ -15,14 +14,13 @@ export default function Detail(props) {
     }, [slug])
 
     const style = {
-        margin: '20px',
+        margin: 'auto',
         background: game?game.dominant_color:'white'
     }
 
 
     return (
         <div>
-            <NavBar />
             {
 
                 game &&

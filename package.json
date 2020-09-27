@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -32,6 +33,37 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
+  },
+  "prettier": {
+    "printWidth": 110,
+    "tabWidth": 4,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": false,
+    "proseWrap": "always",
+    "overrides": [
+        {
+            "files": "package.json",
+            "options": {
+                "printWidth": 250
+            }
+        },
+        {
+            "files": ".ci.yml",
+            "options": {
+                "printWidth": 150
+            }
+        },
+        {
+            "files": "*.md",
+            "options": {
+                "tabWidth": 2
+            }
+        }
     ]
   }
 }

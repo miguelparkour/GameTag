@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import Home from './pages/Home'
-import Detail from './pages/Detail'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Search from './pages/Search'
-import AddGame from './pages/AddGame'
+import Detail from './pages/Detail'
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
  
@@ -12,13 +10,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
     <Router>
-      <Switch>
-        <Route path='/Home' component={Home} />
-        <Route path='/Search/:search' component={Search} />
-        <Route path='/Detail/:slug' component={Detail}/>
-        <Route path='/AddGame' component={AddGame}/>
-        <Route path='/' component={Home}/>
-      </Switch>
+        <Route path='/Search/' component={Search} />
+        <Route path='/Detail/:name' component={Detail}/>
+        <Route path='/' component={Search}/>
     </Router>
     </ThemeProvider>
   )

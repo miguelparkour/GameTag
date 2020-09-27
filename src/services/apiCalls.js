@@ -5,18 +5,41 @@ const headers = new Headers({
     "token": API_KEY,
     'User-Agent':USER_AGENT
 })
+export async function getSuggestedTags (tags){
 
-export async function getGames(keyword) {
+    const suggestedTags = [
+        {name: 'horror'},
+        {name: 'action'},
+        {name: 'survival'},
+        {name: 'fist person'},
+        {name: 'strategy'},
+        {name: 'multiplayer'}
+
+    ]
+    return suggestedTags.filter(elem=>elem.name.includes(tags))
+}
+
+export async function getGames(tags){
+    console.log(`enviando tags a la api ${tags}`)
+    var games = [
+        {title: 'Portal', tags: ['action','horror']},
+        {title: 'Uncharted', tags: ['action','singleplayer']},
+        {title: 'Minecraft', tags: ['survival','horror']}
+    ]
+    console.log(`recibiendo juegos de la api${games}`)
+    return games;
+}
+
+/* export async function getGames(keyword) {
 
     const apiURL = `${API_URI}?search=${keyword}&page_size=10&platforms=1,18,4`
     const response = await fetch(apiURL,{
         method:'GET',
         headers:headers
     })
-    console.log(typeof(response));
     const json = await response.json()
     return json
-}
+} */
 
 export async function getGameBySlug(slug) {
 
