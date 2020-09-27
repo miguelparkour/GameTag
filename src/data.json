@@ -1,142 +1,102 @@
 [
     {
-        "_id" : "5ef24764b5489346c1078b83",
-        "name" : "PlayerUnknown's Battlegrounds",
-        "release" : 2017,
-        "publisher" : "PUBG Corporation",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b84",
-        "name" : "Minecraft",
-        "release" : 2010,
-        "publisher" : "Mojang",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b85",
-        "name" : "Garry's Mod",
-        "release" : 2004,
-        "publisher" : "Unknown",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b86",
-        "name" : "Counter-Strike: Source",
-        "release" : 2004,
-        "publisher" : "VU Games",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b87",
-        "name" : "Portal 2",
-        "release" : 2011,
-        "publisher" : "Valve",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b88",
-        "name" : "Grand Theft Auto V",
-        "release" : 2015,
-        "publisher" : "Rockstar Games",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b89",
-        "name" : "Diablo III",
-        "release" : 2012,
-        "publisher" : "Blizzard Entertainment",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b8a",
-        "name" : "Terraria",
-        "release" : 2011,
-        "publisher" : "Unknown",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b8b",
-        "name" : "RollerCoaster Tycoon 3",
-        "release" : 2004,
-        "publisher" : "Atari",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-},
-{
-        "_id" : "5ef24764b5489346c1078b8c",
-        "name" : "StarCraft",
-        "release" : 1998,
-        "publisher" : "Blizzard Entertainment",
-        "img" : "",
-        "playerModes" : [ ],
-        "scores" : {
-
-        },
-        "tags" : {
-
-        }
-}
+        "_id": "5ef24764b5489346c1078b83",
+        "name": "PlayerUnknown's Battlegrounds",
+        "release": 2017,
+        "publisher": "PUBG Corporation",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b84",
+        "name": "Minecraft",
+        "release": 2010,
+        "publisher": "Mojang",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b85",
+        "name": "Garry's Mod",
+        "release": 2004,
+        "publisher": "Unknown",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b86",
+        "name": "Counter-Strike: Source",
+        "release": 2004,
+        "publisher": "VU Games",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b87",
+        "name": "Portal 2",
+        "release": 2011,
+        "publisher": "Valve",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b88",
+        "name": "Grand Theft Auto V",
+        "release": 2015,
+        "publisher": "Rockstar Games",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b89",
+        "name": "Diablo III",
+        "release": 2012,
+        "publisher": "Blizzard Entertainment",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b8a",
+        "name": "Terraria",
+        "release": 2011,
+        "publisher": "Unknown",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b8b",
+        "name": "RollerCoaster Tycoon 3",
+        "release": 2004,
+        "publisher": "Atari",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    },
+    {
+        "_id": "5ef24764b5489346c1078b8c",
+        "name": "StarCraft",
+        "release": 1998,
+        "publisher": "Blizzard Entertainment",
+        "img": "",
+        "playerModes": [],
+        "scores": {},
+        "tags": {}
+    }
 ]
