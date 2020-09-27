@@ -1,46 +1,27 @@
 import React from 'react';
-import {getGameBySlug} from 'services/apiCalls';
+import {getGame} from 'services/apiCalls';
+import {Typography} from '@material-ui/core';
+import NavBar from 'components/Navbar';
 
 export default function Detail(props) {
-    const slug = props.match.params.slug;
+    const name = props.match.params.name;
     const [game, setGame] = React.useState();
+
     React.useEffect(() => {
-        getGameBySlug(slug).then((res) => {
-            setGame(res);
+        getGame(name).then((result) => {
+            setGame(result);
         });
-    }, [slug]);
-
-    const style = {
-        margin: 'auto',
-        background: game ? game.dominant_color : 'white',
-    };
-
+    }, [name]);
     return (
-        <div>
+        <>
+            <NavBar />
             {game && (
-                <div className="card text-center" style={style}>
-                    <img
-                        className="card-img-top"
-                        src={game.background_image ? game.background_image : 'none'}
-                        alt="portada del juego"
-                    />
-                    <div className="card-header">
-                        <h1>{game.name}</h1>
-                    </div>
-                    <div className="card-body">
-                        <h5 className="card-title">{game.name}</h5>
-                        <p className="card-text">
-                            Desarrollado por: {game.developers ? game.developers[0].name : 'desconocido'}
-                        </p>
-                        <p className="card-text">
-                            Fecha de lanzamiento: {game.released ? game.released : 'desconocido'}
-                        </p>
-                    </div>
-                    <div className="card-footer text-muted">
-                        <small>{game.id}</small>
-                    </div>
+                <div>
+                    <Typography>Nombre: {game.title}</Typography>
+                    <Typography>Publicado por {game.publisher}</Typography>
+                    <Typography>Año de lanzamiento: {game.released}</Typography>
                 </div>
             )}
-        </div>
+        </>
     );
 }

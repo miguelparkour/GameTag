@@ -4,16 +4,21 @@ const headers = new Headers({
     token: API_KEY,
     'User-Agent': USER_AGENT,
 });
+
+export async function getGame(name) {
+    console.log(`Buscando ${name} en la base de datos`);
+    const game = {
+        title: 'Portal',
+        publisher: 'Valve',
+        tags: ['action', 'horror'],
+        released: 2010,
+    };
+    return game;
+}
+
 export async function getSuggestedTags(tags) {
-    const suggestedTags = [
-        {name: 'horror'},
-        {name: 'action'},
-        {name: 'survival'},
-        {name: 'fist person'},
-        {name: 'strategy'},
-        {name: 'multiplayer'},
-    ];
-    return suggestedTags.filter((elem) => elem.name.includes(tags));
+    const suggestedTags = ['horror', 'action', 'survival', 'fist person', 'strategy', 'multiplayer'];
+    return suggestedTags;
 }
 
 export async function getGames(tags) {
@@ -39,6 +44,7 @@ export async function getGames(tags) {
 } */
 
 export async function getGameBySlug(slug) {
+    console.log(slug);
     const game = getGameFromStorage(slug);
     if (game) {
         return game;

@@ -1,7 +1,9 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
     root: {
@@ -18,12 +20,14 @@ const useStyles = makeStyles({
     },
 });
 
-export default function GameCard({game}) {
+export default function GameCard({game, handle}) {
     const classes = useStyles();
+    const history = useHistory();
 
-    const handleDelete = (elem) => {
-        console.log('deleteando chip', elem);
-    };
+    function handleClick() {
+        const path = '/Detail/' + game.title;
+        history.push(path);
+    }
 
     return (
         <div className={classes.root}>
@@ -35,13 +39,13 @@ export default function GameCard({game}) {
             <div className={classes.textCard}>
                 <Typography>{game.title}</Typography>
                 {game.tags.map((elem) => (
-                    <Chip
-                        key={elem}
-                        label={elem}
-                        onDelete={() => console.log('deleteando chip', elem)} // no me deja sacarlo fuera
-                    />
+                    <Chip key={elem} label={elem} onClick={() => handle(elem)} />
                 ))}
             </div>
+
+            <Button onClick={handleClick} variant="contained" color="primary">
+                Primary
+            </Button>
         </div>
     );
 }
