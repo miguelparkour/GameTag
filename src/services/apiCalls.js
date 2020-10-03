@@ -16,20 +16,27 @@ export async function getGame(name) {
     return game;
 }
 
-export async function getSuggestedTags(tags) {
-    const suggestedTags = ['horror', 'action', 'survival', 'fist person', 'strategy', 'multiplayer'];
-    return suggestedTags;
+export async function getSuggestedTags(keywords) {
+    const apiUri = `http://localhost:8080/Backend/api/games/getTags?keywords=${keywords}`;
+    const response = await fetch(apiUri, {
+        method: 'GET',
+    });
+    const data = await response.json();
+    return data;
 }
 
 export async function getGames(tags) {
-    console.log(`enviando tags a la api ${tags}`);
-    var games = [
-        {title: 'Portal', tags: ['action', 'horror']},
-        {title: 'Uncharted', tags: ['action', 'singleplayer']},
-        {title: 'Minecraft', tags: ['survival', 'horror']},
-    ];
-    console.log(`recibiendo juegos de la api${games}`);
-    return games;
+    const json = {
+        tags: tags,
+    };
+    const apiUri = `http://localhost:8080/Backend/api/games/getGames`;
+    const response = await fetch(apiUri, {
+        method: 'POST',
+        body: JSON.stringify(json),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
 }
 
 /* export async function getGames(keyword) {

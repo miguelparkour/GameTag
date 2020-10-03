@@ -25,7 +25,7 @@ export default function GameCard({game, handle}) {
     const history = useHistory();
 
     function handleClick() {
-        const path = '/Detail/' + game.title;
+        const path = '/Detail/' + game._id;
         history.push(path);
     }
 

@@ -12,7 +12,6 @@ export default function SignUp() {
         password: '',
         email: '',
         confirmPassword: '',
-        validate: false,
     });
 
     const handleChange = (event) => {
@@ -24,9 +23,6 @@ export default function SignUp() {
 
     const handleSubmit = () => {
         console.log(values);
-    };
-    const handleConfirmPassword = (event) => {
-        if (values.password === event.target.value) setValues({...values, confirmPassword: true});
     };
 
     return (

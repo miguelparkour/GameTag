@@ -4,14 +4,14 @@ import {Typography} from '@material-ui/core';
 import NavBar from 'components/Navbar';
 
 export default function Detail(props) {
-    const name = props.match.params.name;
+    const id = props.match.params.id;
     const [game, setGame] = React.useState();
 
     React.useEffect(() => {
-        getGame(name).then((result) => {
+        getGame(id).then((result) => {
             setGame(result);
         });
-    }, [name]);
+    }, [id]);
     return (
         <>
             <NavBar />

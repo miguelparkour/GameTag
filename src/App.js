@@ -14,7 +14,7 @@ function App() {
             <Router>
                 <Switch>
                     <Route path="/Search/" component={Search} />
-                    <Route path="/Detail/:name" component={Detail} />
+                    <Route path="/Detail/:id" component={Detail} />
                     <Route path="/Login/" component={Login} />
                     <Route path="/SignUp/" component={SignUp} />
                     <Route path="/" component={Search} />

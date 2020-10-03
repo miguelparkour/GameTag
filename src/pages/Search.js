@@ -73,7 +73,7 @@ export default function Search() {
 
             <div className={classes.cardContainer}>
                 {games.map((elem) => (
-                    <GameCard game={elem} key={elem.title} handle={handleTagChild} />
+                    <GameCard game={elem} key={elem._id} handle={handleTagChild} />
                 ))}
             </div>
         </div>
