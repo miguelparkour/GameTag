@@ -5,18 +5,26 @@ const headers = new Headers({
     'User-Agent': USER_AGENT,
 });
 
-export async function getGame(name) {
-    console.log(`Buscando ${name} en la base de datos`);
-    const game = {
-        title: 'Portal',
-        publisher: 'Valve',
-        tags: ['action', 'horror'],
-        released: 2010,
-    };
-    return game;
+export async function getGame(slug) {
+    console.log('call getgame');
+    const apiUri = `http://localhost:8080/Backend/api/games/getGame?slug=${slug}`;
+    const response = await fetch(apiUri, {
+        method: 'GET',
+    });
+    const data = await response.json();
+    return data;
 }
-
+export async function firstCall() {
+    console.log('call firstCall');
+    const apiUri = `http://localhost:8080/Backend/api/games/firstCall`;
+    const response = await fetch(apiUri, {
+        method: 'GET',
+    });
+    const data = await response.json();
+    return data;
+}
 export async function getSuggestedTags(keywords) {
+    console.log('call suggestedTags');
     const apiUri = `http://localhost:8080/Backend/api/games/getTags?keywords=${keywords}`;
     const response = await fetch(apiUri, {
         method: 'GET',
@@ -26,6 +34,7 @@ export async function getSuggestedTags(keywords) {
 }
 
 export async function getGames(tags) {
+    console.log(`call getgames`);
     const json = {
         tags: tags,
     };
@@ -35,7 +44,6 @@ export async function getGames(tags) {
         body: JSON.stringify(json),
     });
     const data = await response.json();
-    console.log(data);
     return data;
 }
 
