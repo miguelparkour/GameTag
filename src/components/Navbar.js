@@ -13,18 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import {useHistory} from 'react-router-dom';
 
-/*
-#DAF7A6
-#FFC300
-#FF5733
-#C70039
-#900C3F
-#581845
-*/
 const useStyles = makeStyles((theme) => ({
     root: {
-        background: 'linear-gradient(#150826,#153033)',
-        color: 'white',
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
         padding: '0 30px',
     },
     button: {
@@ -78,7 +70,7 @@ export default function NavBar(props) {
             <HideOnScroll {...props}>
                 <AppBar className={classes.root}>
                     <Toolbar>
-                        <IconButton color="inherit" onClick={() => history.push('/')}>
+                        <IconButton disableRipple color="inherit" onClick={() => history.push('/')}>
                             <SportsEsportsIcon fontSize="large" />
                             <Typography variant="h4"> TagGames</Typography>
                         </IconButton>

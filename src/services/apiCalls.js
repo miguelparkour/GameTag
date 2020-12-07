@@ -47,19 +47,8 @@ export async function getGames(tags) {
     return data;
 }
 
-/* export async function getGames(keyword) {
-
-    const apiURL = `${API_URI}?search=${keyword}&page_size=10&platforms=1,18,4`
-    const response = await fetch(apiURL,{
-        method:'GET',
-        headers:headers
-    })
-    const json = await response.json()
-    return json
-} */
-
 export async function getGameBySlug(slug) {
-    console.log(slug);
+    ''(slug);
     const game = getGameFromStorage(slug);
     if (game) {
         return game;

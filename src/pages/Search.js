@@ -2,16 +2,17 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import {Grid, Typography} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {firstCall, getGames} from 'services/apiCalls';
 import GameCard from 'components/GameCard';
 import NavBar from 'components/Navbar';
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        //backgroundColor: '#6078a8',
-        backgroundColor: '#577',
-        minHeight: 1000,
+        backgroundColor: theme.palette.primary.dark,
+        minHeight: 500,
     },
     searcher: {
         margin: '40px auto',
@@ -20,53 +21,83 @@ const useStyles = makeStyles((theme) => ({
     cardContainer: {
         margin: 'auto',
     },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: theme.palette.primary.contrastText,
+    },
 }));
 
 export default function Search() {
     const classes = useStyles();
     const [tags, setTags] = React.useState([]);
     const [suggestedTags, setSuggestedTags] = React.useState([]);
-    const [search, setSearch] = React.useState('');
+    const [open, setOpen] = React.useState(false);
     const [games, setGames] = React.useState([]);
 
     React.useEffect(() => {
-        console.log('apicall');
-        firstCall().then((resp) => {
-            setSuggestedTags(JSON.parse(resp.tags));
-            setGames(JSON.parse(resp.games));
-        });
+        let tags = JSON.parse(localStorage.getItem('tags'));
+        let games = JSON.parse(localStorage.getItem('games'));
+        if (tags && games) {
+            setSuggestedTags(tags);
+            setGames(games);
+        } else {
+            setOpen((o) => (o = !o));
+            firstCall()
+                .then((resp) => {
+                    localStorage.clear();
+                    setSuggestedTags(JSON.parse(resp.tags));
+                    localStorage.setItem('tags', resp.tags);
+                    setGames(JSON.parse(resp.games));
+                    localStorage.setItem('games', resp.games);
+                })
+                .catch((err) => ''(err))
+                .finally(() => setOpen((o) => (o = false)));
+        }
     }, []);
 
     React.useEffect(() => {
         if (tags.length > 0) {
-            getGames(tags).then((games) => {
-                setGames(games);
-                console.log('games', games);
-            });
+            setOpen((o) => (o = !o));
+            getGames(tags)
+                .then((games) => {
+                    setGames(games);
+                    localStorage.setItem('games', JSON.stringify(games));
+                    games.forEach((element) => {
+                        ''(element);
+                    });
+                })
+                .catch((err) => console.log(err))
+                .finally(() => setOpen((o) => (o = false)));
         }
     }, [tags]);
-
     return (
         <>
             <NavBar />
 
+            <Backdrop className={classes.backdrop} open={open}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <div className={classes.container}>
                 <Grid container spacing={0}>
                     <Grid item md={3} sm={5} xs={12}>
                         <Autocomplete
+                            onHighlightChange={(ev, op) => {
+                                if (ev) ev.target.value = op.name;
+                            }}
+                            limitTags={3}
                             className={classes.searcher}
                             onChange={(ev, value) => {
                                 setTags(value);
-                            }} //el manejador al dar enter
-                            onInputChange={(ev, value) => {
-                                setSearch(value);
                             }}
                             multiple
                             id="tags-standard"
-                            options={suggestedTags}
+                            options={suggestedTags.sort((a, b) =>
+                                a.type > b.type ? 1 : b.type > a.type ? -1 : 0
+                            )}
                             getOptionLabel={(option) => option.name}
                             filterSelectedOptions={true}
                             value={tags}
+                            groupBy={(option) => option.type}
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
@@ -85,8 +116,3 @@ export default function Search() {
         </>
     );
 }
-/*
-
-            <div className={classes.container}>
-            </div>
-*/

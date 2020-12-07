@@ -22,7 +22,7 @@ export default function SignUp() {
     };
 
     const handleSubmit = () => {
-        console.log(values);
+        ''(values);
     };
 
     return (

@@ -14,16 +14,13 @@ import {useHistory} from 'react-router-dom';
 
 const useGridStyles = makeStyles(({breakpoints}) => ({
     root: {
-        /*[breakpoints.up('md')]: {
-      justifyContent: 'center',
-    },*/
         width: '90%',
         margin: 'auto',
         justifyContent: 'center',
     },
 }));
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     media: {
         padding: 70,
     },
@@ -34,29 +31,29 @@ const useStyles = makeStyles(() => ({
             transform: 'scale(1.1)',
         },
     },
-    card: ({color}) => ({
+    card: {
         width: 256,
         borderRadius: 16,
-        border: '5px groove #150826',
+        borderColor: theme.palette.primary.main,
+        borderStyle: 'groove',
+        borderWidth: 5,
         boxShadow: 'none',
         '&:hover': {
-            boxShadow: `0 6px 12px 0 ${Color(color).rotate(-12).darken(0.2).fade(0.5)}`,
+            boxShadow: `0 6px 12px 0 ${Color(theme.palette.primary.main).rotate(-12).darken(0.2).fade(0.5)}`,
         },
-    }),
-    content: ({color}) => {
-        return {
-            backgroundColor: color,
-            padding: '1rem 1.5rem 1.5rem',
-        };
+    },
+    content: {
+        backgroundColor: theme.palette.primary.main,
+        padding: '1rem 1.5rem 1.5rem',
     },
     title: {
         fontFamily: '-webkit-pictograph',
         fontSize: '1.5rem',
-        color: '#fff',
+        color: theme.palette.primary.contrastText,
     },
     subtitle: {
         fontFamily: 'Montserrat',
-        color: '#fff',
+        color: theme.palette.primary.contrastText,
         opacity: 0.87,
         marginTop: '2rem',
         fontWeight: 500,
@@ -115,8 +112,8 @@ export default function GameCard({games}) {
             <Grid classes={gridStyles} container spacing={3}>
                 {games ? (
                     games.map((elem) => {
-                        if (!elem.media.background && elem.media.cover) {
-                            elem.media.background = elem.media.cover.replace('thumb', '720p');
+                        if (!elem.media.background && elem.media.images.length > 0) {
+                            elem.media.background = elem.media.images[0].replace('thumb', '720p');
                         } else if (!elem.media.cover && !elem.media.background) {
                             elem.media.background =
                                 'https://media-exp1.licdn.com/dms/image/C5603AQGAb6UHgbcfJA/profile-displayphoto-shrink_200_200/0?e=1608768000&v=beta&t=WmdMK4rKdU4weRCPi-kzRqFYtlaBdhTpwxCCy5FBrcc';
@@ -127,7 +124,7 @@ export default function GameCard({games}) {
                                     classes={styles}
                                     title={elem.name}
                                     subtitle={'Be a Legend!'}
-                                    image={elem.media.background}
+                                    image={elem.media.cover.replace('thumb', 'cover_big')}
                                     game={elem}
                                 />
                             </Grid>
