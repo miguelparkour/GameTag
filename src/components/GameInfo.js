@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CustomCarousel from 'components/CustomCarousel';
 import ChipsContainer from './ChipsContainer';
 
+// ::::: STYLES :::::
 const useStyles = makeStyles((theme) => ({
     root: {
         width: 'auto',
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+// Acordeon para las imagenes del game
 const CustomMediaAccordion = function ({classes, title, info}) {
     if (info) {
         return (
@@ -59,8 +61,9 @@ const CustomMediaAccordion = function ({classes, title, info}) {
         return <></>;
     }
 };
+
+// acordeon para LA info del game
 const CustomAccordion = function ({classes, title, info}) {
-    console.log(title, ': ', info);
     if (info) {
         return (
             <div className={classes.root}>
@@ -80,13 +83,12 @@ const CustomAccordion = function ({classes, title, info}) {
 };
 export default function GameInfo({game}) {
     const classes = useStyles();
-    console.log('Game: ', game);
     return (
         <>
-            {<CustomAccordion classes={classes} title="Details" info={<ChipsContainer game={game} />} />}
+            <CustomAccordion classes={classes} title="Details" info={<ChipsContainer game={game} />} />
             <CustomAccordion classes={classes} title="Description" info={game.description} />
             <CustomAccordion classes={classes} title="Storyline" info={game.storyline} />
-            {<CustomMediaAccordion classes={classes} title="Multimedia" info={game.media} />}
+            <CustomMediaAccordion classes={classes} title="Multimedia" info={game.media} />
         </>
     );
 }

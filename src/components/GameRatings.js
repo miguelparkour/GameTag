@@ -1,11 +1,11 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
-import Star from '@material-ui/icons/Star';
 import {makeStyles} from '@material-ui/core/styles';
 import Progress from 'react-circle-progress-bar';
 
-const useStyles = makeStyles(({theme}) => ({
+// ::::: STYLES :::::
+const useStyles = makeStyles(() => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap-reverse',
@@ -20,6 +20,12 @@ const useStyles = makeStyles(({theme}) => ({
 export default function GameRatings({ratings}) {
     const [num, setNum] = React.useState(0);
     const classes = useStyles();
+
+    // ::::: USE EFFECT :::::
+    /*  Se calcula el rating global (num), y se pinta
+            Se pinta con un delay de 1 segundo para que le de tiempo
+            a la página a cargarse antes de empezar con la animación
+            del componente Progress */
     React.useEffect(() => {
         const timer = setTimeout(() => {
             let cont = 0;
@@ -36,6 +42,7 @@ export default function GameRatings({ratings}) {
         }, 1000);
         return () => clearTimeout(timer);
     }, [num, ratings]);
+
     return (
         <>
             {ratings ? (

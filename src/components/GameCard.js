@@ -1,8 +1,6 @@
 import React from 'react';
 import Color from 'color';
-import GoogleFont from 'react-google-font-loader';
 import {makeStyles} from '@material-ui/core/styles';
-import NoSsr from '@material-ui/core/NoSsr';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -11,13 +9,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import {useFourThreeCardMediaStyles} from '@mui-treasury/styles/cardMedia/fourThree';
 import {useHistory} from 'react-router-dom';
-
-const useStyles = makeStyles((theme) => ({
+const useGridStyles = makeStyles(() => ({
     root: {
         width: '90%',
         margin: 'auto',
         justifyContent: 'center',
     },
+}));
+
+const useStyles = makeStyles((theme) => ({
     media: {
         padding: 70,
     },
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CustomCard = ({classes, image, title, subtitle, game}) => {
+const CustomCard = ({classes, game}) => {
     const mediaStyles = useFourThreeCardMediaStyles();
     const history = useHistory();
     const [inHover, setHover] = React.useState(false);
@@ -86,7 +86,11 @@ const CustomCard = ({classes, image, title, subtitle, game}) => {
                         autoPlay
                     />
                 ) : (
-                    <CardMedia className={classes.media} classes={mediaStyles} image={image} />
+                    <CardMedia
+                        className={classes.media}
+                        classes={mediaStyles}
+                        image={game.media.cover.replace('thumb', 'cover_big')}
+                    />
                 )}
                 <CardContent className={classes.content}>
                     <Typography className={classes.title} variant={'h1'}>
@@ -99,11 +103,12 @@ const CustomCard = ({classes, image, title, subtitle, game}) => {
 };
 
 export default function GameCard({games}) {
+    const gridClasses = useGridStyles();
     const classes = useStyles();
 
     return (
         <>
-            <Grid classes={classes} container spacing={3}>
+            <Grid classes={gridClasses} container spacing={3}>
                 {games ? (
                     games.map((elem) => {
                         if (!elem.media.background && elem.media.images && elem.media.images.length > 0) {
@@ -114,12 +119,7 @@ export default function GameCard({games}) {
                         }
                         return (
                             <Grid item key={elem.slug}>
-                                <CustomCard
-                                    classes={classes}
-                                    title={elem.name}
-                                    image={elem.media.cover.replace('thumb', 'cover_big')}
-                                    game={elem}
-                                />
+                                <CustomCard classes={classes} title={elem.name} game={elem} />
                             </Grid>
                         );
                     })

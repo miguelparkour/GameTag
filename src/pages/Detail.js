@@ -2,11 +2,13 @@ import React from 'react';
 import {getGame} from 'services/apiCalls';
 import {Divider, Grid, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import NavBar from 'components/Navbar';
 import GameInfo from 'components/GameInfo';
 import GameRatings from 'components/GameRatings';
-//import data from 'data';
 
+// ::::: STYLES :::::
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: '50px 0px',
@@ -29,31 +31,45 @@ const useStyles = makeStyles((theme) => ({
     cover: {
         paddingTop: '0px',
     },
-    border: {
-        // border: '1px white solid',
+    error404: {
+        color: theme.palette.primary.contrastText,
     },
 }));
 
 export default function Detail(props) {
+    // slug del juego a mostrar
     const id = props.match.params.id;
+    // juego a mostrar
     const [game, setGame] = React.useState();
+    // estado del spinner de carga
+    const [open, setOpen] = React.useState(false);
+    // estilos
     const classes = useStyles();
 
+    /*  Debería cargar siempre los datos del juego con el localStorage,
+        pero en caso de que este sea borrado, hace una petición a la BD */
     React.useEffect(() => {
+        setOpen(true);
         let gamesArr = JSON.parse(localStorage.getItem('games'));
         const game = gamesArr.find((elem) => elem.slug === id);
+        console.log(game);
         if (!game) {
             getGame(id).then((result) => {
                 setGame(result);
+                setOpen(false);
             });
         } else {
             setGame(game);
+            setOpen(false);
         }
     }, [id]);
 
     return (
         <>
             <NavBar />
+            <Backdrop className={classes.backdrop} open={open}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             {game ? (
                 <div className={classes.root} style={{backgroundImage: `url(${game.media.background})`}}>
                     <Grid className={classes.container} container spacing={4}>
@@ -89,7 +105,9 @@ export default function Detail(props) {
                 </div>
             ) : (
                 <div className={classes.root}>
-                    <h1>GAME NOT FOUND</h1>
+                    <Typography variant="h1" className={classes.error404}>
+                        GAME NOT FOUND
+                    </Typography>
                 </div>
             )}
         </>

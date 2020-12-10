@@ -2,7 +2,7 @@ import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-
+// ::::: STYLES ::::::
 const useStyles = makeStyles((theme) => ({
     detail: {
         display: 'flex',

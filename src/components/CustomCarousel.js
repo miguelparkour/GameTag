@@ -3,6 +3,7 @@ import Carousel, {slidesToShowPlugin} from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import {makeStyles} from '@material-ui/core/styles';
 
+// ::::: STYLES :::::
 const useStyles = makeStyles((theme) => ({
     root: {
         width: 'auto',
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomCarousel({media}) {
     const classes = useStyles();
 
+    /*  state para cambiar un estilo del componente Carousel */
     React.useEffect(() => {
         const carr = document.querySelector('.BrainhubCarousel__container');
         if (carr) carr.style.width = 'auto';
@@ -72,9 +74,16 @@ export default function CustomCarousel({media}) {
                             },
                         ]}
                     >
-                        {media.images.map((item) => {
+                        {media.images.map((item, index) => {
                             item = item.replace('thumb', '720p');
-                            return <img key={item} className={classes.img} src={item} alt="" />;
+                            return (
+                                <img
+                                    key={item}
+                                    className={classes.img}
+                                    src={item}
+                                    alt={`screenshot${index}`}
+                                />
+                            );
                         })}
                     </Carousel>
                 </>
