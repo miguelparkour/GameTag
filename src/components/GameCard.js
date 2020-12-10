@@ -12,15 +12,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import {useFourThreeCardMediaStyles} from '@mui-treasury/styles/cardMedia/fourThree';
 import {useHistory} from 'react-router-dom';
 
-const useGridStyles = makeStyles(({breakpoints}) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         width: '90%',
         margin: 'auto',
         justifyContent: 'center',
     },
-}));
-
-const useStyles = makeStyles((theme) => ({
     media: {
         padding: 70,
     },
@@ -45,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         backgroundColor: theme.palette.primary.main,
         padding: '1rem 1.5rem 1.5rem',
+        minHeight: 125,
     },
     title: {
         fontFamily: '-webkit-pictograph',
@@ -85,8 +83,6 @@ const CustomCard = ({classes, image, title, subtitle, game}) => {
                         loop
                         muted
                         preload="auto"
-                        //controls
-                        controlsList="nofullscreen"
                         autoPlay
                     />
                 ) : (
@@ -96,7 +92,6 @@ const CustomCard = ({classes, image, title, subtitle, game}) => {
                     <Typography className={classes.title} variant={'h1'}>
                         {game.name}
                     </Typography>
-                    <Typography className={classes.subtitle}>{subtitle}</Typography>
                 </CardContent>
             </Card>
         </CardActionArea>
@@ -104,15 +99,14 @@ const CustomCard = ({classes, image, title, subtitle, game}) => {
 };
 
 export default function GameCard({games}) {
-    const gridStyles = useGridStyles();
-    const styles = useStyles({color: '#150826'});
+    const classes = useStyles();
 
     return (
         <>
-            <Grid classes={gridStyles} container spacing={3}>
+            <Grid classes={classes} container spacing={3}>
                 {games ? (
                     games.map((elem) => {
-                        if (!elem.media.background && elem.media.images.length > 0) {
+                        if (!elem.media.background && elem.media.images && elem.media.images.length > 0) {
                             elem.media.background = elem.media.images[0].replace('thumb', '720p');
                         } else if (!elem.media.cover && !elem.media.background) {
                             elem.media.background =
@@ -121,9 +115,8 @@ export default function GameCard({games}) {
                         return (
                             <Grid item key={elem.slug}>
                                 <CustomCard
-                                    classes={styles}
+                                    classes={classes}
                                     title={elem.name}
-                                    subtitle={'Be a Legend!'}
                                     image={elem.media.cover.replace('thumb', 'cover_big')}
                                     game={elem}
                                 />

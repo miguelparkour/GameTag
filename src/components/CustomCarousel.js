@@ -5,6 +5,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        width: 'auto',
         [theme.breakpoints.down('md')]: {
             display: 'none',
         },
@@ -22,12 +23,18 @@ const useStyles = makeStyles((theme) => ({
     },
     img: {
         maxHeight: 500,
+        minHeight: 150,
         width: 'inherit',
     },
 }));
 
 export default function CustomCarousel({media}) {
     const classes = useStyles();
+
+    React.useEffect(() => {
+        const carr = document.querySelector('.BrainhubCarousel__container');
+        if (carr) carr.style.width = 'auto';
+    }, []);
 
     return (
         <>
@@ -36,7 +43,6 @@ export default function CustomCarousel({media}) {
                     <Carousel
                         className={classes.root}
                         plugins={[
-                            'fastSwipe',
                             'infinite',
                             'arrows',
                             {
@@ -52,7 +58,20 @@ export default function CustomCarousel({media}) {
                             return <img key={item} className={classes.img} src={item} alt="" />;
                         })}
                     </Carousel>
-                    <Carousel className={classes.mobileRoot} plugins={['infinite', 'arrows']}>
+                    <Carousel
+                        draggable="false"
+                        className={classes.mobileRoot}
+                        plugins={[
+                            'infinite',
+                            'arrows',
+                            {
+                                resolve: slidesToShowPlugin,
+                                options: {
+                                    numberOfSlides: 1,
+                                },
+                            },
+                        ]}
+                    >
                         {media.images.map((item) => {
                             item = item.replace('thumb', '720p');
                             return <img key={item} className={classes.img} src={item} alt="" />;

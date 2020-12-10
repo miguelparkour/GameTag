@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {firstCall, getGames} from 'services/apiCalls';
 import GameCard from 'components/GameCard';
 import NavBar from 'components/Navbar';
+import ChipsContainer from 'components/ChipsContainer';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -25,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer + 1,
         color: theme.palette.primary.contrastText,
     },
+    filter: {
+        width: '90%',
+        margin: 'auto',
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
+        padding: 20,
+        overflow: 'auto',
+        borderRadius: 16,
+    },
 }));
 
 export default function Search() {
@@ -33,6 +43,7 @@ export default function Search() {
     const [suggestedTags, setSuggestedTags] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const [games, setGames] = React.useState([]);
+    const [filterGame, setFilterGame] = React.useState({});
 
     React.useEffect(() => {
         let tags = JSON.parse(localStorage.getItem('tags'));
@@ -57,19 +68,31 @@ export default function Search() {
 
     React.useEffect(() => {
         if (tags.length > 0) {
+            let temp = {};
+            tags.forEach((elem) => {
+                if (!temp.hasOwnProperty(elem.type)) {
+                    temp[elem.type] = [];
+                }
+                temp[elem.type].push(elem.name);
+            });
+            setFilterGame(temp);
             setOpen((o) => (o = !o));
             getGames(tags)
                 .then((games) => {
                     setGames(games);
+                    console.log(games);
                     localStorage.setItem('games', JSON.stringify(games));
-                    games.forEach((element) => {
-                        ''(element);
-                    });
                 })
                 .catch((err) => console.log(err))
                 .finally(() => setOpen((o) => (o = false)));
         }
     }, [tags]);
+
+    const deleteTag = (chip) => () => {
+        console.log('chip: ', chip);
+        setTags(tags.filter((elem) => elem.name !== chip));
+        setFilterGame({});
+    };
     return (
         <>
             <NavBar />
@@ -81,18 +104,16 @@ export default function Search() {
                 <Grid container spacing={0}>
                     <Grid item md={3} sm={5} xs={12}>
                         <Autocomplete
+                            className={classes.searcher}
                             onHighlightChange={(ev, op) => {
                                 if (ev) ev.target.value = op.name;
                             }}
-                            limitTags={3}
-                            className={classes.searcher}
                             onChange={(ev, value) => {
                                 setTags(value);
                             }}
                             multiple
-                            id="tags-standard"
                             options={suggestedTags.sort((a, b) =>
-                                a.type > b.type ? 1 : b.type > a.type ? -1 : 0
+                                a.type > b.type ? -1 : b.type > a.type ? 1 : 0
                             )}
                             getOptionLabel={(option) => option.name}
                             filterSelectedOptions={true}
@@ -106,7 +127,11 @@ export default function Search() {
                                     placeholder="Tag"
                                 />
                             )}
+                            ChipProps={{style: {display: 'none'}}}
                         />
+                        <div className={classes.filter}>
+                            <ChipsContainer game={filterGame} isFilter={true} onDeleteTag={deleteTag} />
+                        </div>
                     </Grid>
                     <Grid item md={9} sm={7} xs={12}>
                         <GameCard games={games} />

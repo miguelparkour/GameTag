@@ -3,7 +3,6 @@ import {getGame} from 'services/apiCalls';
 import {Divider, Grid, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import NavBar from 'components/Navbar';
-import CustomCarousel from 'components/CustomCarousel';
 import GameInfo from 'components/GameInfo';
 import GameRatings from 'components/GameRatings';
 //import data from 'data';
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
         padding: '0 20px',
-        margin: '100px auto 20px',
+        margin: '90px auto 20px',
         width: '85%',
     },
     img: {
@@ -85,11 +84,6 @@ export default function Detail(props) {
                         </Grid>
                         <Grid item sm={12}>
                             <GameInfo game={game} />
-                        </Grid>
-                        <Grid item md={12}>
-                            {
-                                //<CustomCarousel media={game.media} />
-                            }
                         </Grid>
                     </Grid>
                 </div>
